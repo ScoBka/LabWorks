@@ -4,60 +4,70 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Text {
-    private String [] text;
     private StringBuilder hlpStr;
-    private ArrayList list;
-    private int amount;
+    private ArrayList<String> list;
 
     public void inputText() throws IOException {
+        list = new ArrayList<>();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("Write your string :");
-        while(true){
-            text []= br.readLine();
-            amount ++;
-            if(text[].length() == 0) break;
+        System.out.println("Enter your text :");
+        String text;
+        do {
+            text = br.readLine();
+            list.add(text);
+        } while (text.length() != 0);
+    }
+
+    public void printText() {
+        System.out.println("Our text is : ");
+        for (String str : list) {
+            System.out.println(str + " ");
         }
     }
-    public void printText () {
-        for (int i = 0; i < amount; i++) {
-            System.out.println("Our string is : " + text[i]);
+    private String listToStr(List<String> al){
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(String item : al){
+            stringBuilder.append(item);
+            stringBuilder.append(" ");
         }
+
+        return stringBuilder.toString();
     }
-    public void devideStrWords() {
-        hlpStr = new StringBuilder();
+
+    public void divideStrWords() {
         String seps;
-        String token = "";
+        String token;
         seps = (" ,.");
-        StringTokenizer tokenizer = new StringTokenizer(text, seps);
+        StringTokenizer tokenizer = new StringTokenizer(listToStr(list), seps);
         while(tokenizer.hasMoreTokens()) {
             token = tokenizer.nextToken();
             hlpStr.append(token);
         }
     }
     public void lettersSearch() {
-        list = new ArrayList<char []>();
-        char [] tempStr = hlpStr.toString().toCharArray();
-        for (int i = 0; i < tempStr.length; i++) {
-            if ((tempStr[i] > 'a' && tempStr[i] < 'z')||(tempStr[i] > 'A' && tempStr[i] < 'Z')) {
-                list.add(tempStr[i]);
+        for (int i = 0; i < hlpStr.length(); i++) {
+            if (hlpStr.toString()[i] != "//s | //d") {
+                list.add(symbol);
+                list.add(" ");
             }
         }
     }
-    public void sortLetters() {
-        Collections.sort(list, new Comparator<char[]>() {
-            public int compare(char[] o1, char[] o2) {
-                return o1.toString().compareTo(o2.toString());
-            }
-        });
-    }
+//    public void sortLetters() {
+//        Collections.sort(list, new Comparator<char[]>() {
+//            public int compare(char[] o1, char[] o2) {
+//                return o1.toString().compareTo(o2.toString());
+//            }
+//        });
+//    }
     public void printResult() {
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i) + " ");
-        }
+        String text = listToStr(list);
+        System.out.println("The result is :");
+        System.out.println(text);
     }
 }

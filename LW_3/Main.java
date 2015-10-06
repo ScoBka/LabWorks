@@ -8,7 +8,7 @@ public class Main {
         try {
             a.inputText();
             a.printText();
-            a.devideStrWords();
+//            a.divideStrWords();
             a.sortLetters();
             a.printResult();
         } catch (IOException e) {
