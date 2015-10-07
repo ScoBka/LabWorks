@@ -4,70 +4,57 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.Collections;
 
 public class Text {
     private StringBuilder hlpStr;
+    private String[] tmpString;
     private ArrayList<String> list;
 
     public void inputText() throws IOException {
-        list = new ArrayList<>();
+        hlpStr = new StringBuilder();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter your text :");
         String text;
         do {
             text = br.readLine();
-            list.add(text);
+            hlpStr.append(text);
+            hlpStr.append(" ");
         } while (text.length() != 0);
     }
 
     public void printText() {
         System.out.println("Our text is : ");
-        for (String str : list) {
-            System.out.println(str + " ");
-        }
-    }
-    private String listToStr(List<String> al){
-
-        StringBuilder stringBuilder = new StringBuilder();
-
-        for(String item : al){
-            stringBuilder.append(item);
-            stringBuilder.append(" ");
-        }
-
-        return stringBuilder.toString();
+        System.out.println(hlpStr);
     }
 
     public void divideStrWords() {
-        String seps;
-        String token;
-        seps = (" ,.");
-        StringTokenizer tokenizer = new StringTokenizer(listToStr(list), seps);
-        while(tokenizer.hasMoreTokens()) {
-            token = tokenizer.nextToken();
-            hlpStr.append(token);
+        tmpString = hlpStr.toString().split("[\\s,.]+");
+        System.out.println("After divide :");
+        for (String tmp : tmpString) {
+            System.out.print(tmp + " ");
         }
+        System.out.println("");
     }
+
     public void lettersSearch() {
-        for (int i = 0; i < hlpStr.length(); i++) {
-            if (hlpStr.toString()[i] != "//s | //d") {
-                list.add(symbol);
-                list.add(" ");
-            }
+        list = new ArrayList<>();
+        for (String tmp : tmpString) {
+             list.add(tmp.replaceAll("[0-9,.;:{}/]", ""));
         }
+        System.out.println("After string edit :");
+        for (String tmp1 : list) {
+            System.out.print(tmp1 + " ");
+        }
+        System.out.println("");
     }
-//    public void sortLetters() {
-//        Collections.sort(list, new Comparator<char[]>() {
-//            public int compare(char[] o1, char[] o2) {
-//                return o1.toString().compareTo(o2.toString());
-//            }
-//        });
-//    }
+    public void sortLetters() {
+       Collections.sort(list);
+    }
     public void printResult() {
-        String text = listToStr(list);
-        System.out.println("The result is :");
-        System.out.println(text);
+        System.out.println("Sorted :");
+        for (String tmp : list) {
+            System.out.print(tmp + " ");
+        }
     }
 }
