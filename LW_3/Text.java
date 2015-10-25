@@ -3,58 +3,64 @@ package LW_3;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class Text {
-    private StringBuilder hlpStr;
-    private String[] tmpString;
-    private ArrayList<String> list;
+    private final int NUMB_LETTERS;
+    private boolean[] resBigLetters;
+    private boolean[] resSmallLetters;
+    StringBuilder text;
 
-    public void inputText() throws IOException {
-        hlpStr = new StringBuilder();
+    public Text() {
+        NUMB_LETTERS = 26;
+        text = new StringBuilder();
+        resBigLetters = new boolean[NUMB_LETTERS];
+        resSmallLetters = new boolean[NUMB_LETTERS];
+        for (int i = 0; i < NUMB_LETTERS; i++) {
+            resBigLetters[i] = false;
+            resSmallLetters[i] = false;
+        }
+    }
+
+    public void input() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter your text :");
-        String text;
+        String tmp;
         do {
-            text = br.readLine();
-            hlpStr.append(text);
-            hlpStr.append(" ");
-        } while (text.length() != 0);
+            tmp = br.readLine();
+            text.append(tmp);
+        } while (tmp.length() > 0);
     }
 
-    public void printText() {
-        System.out.println("Our text is : ");
-        System.out.println(hlpStr);
+    private boolean isBigLetter(char c) {
+        if (c >= 'A' && c <= 'Z')
+            return true;
+        return false;
+    }
+    private boolean isSmallLetter(char c) {
+        if (c >= 'a' && c <= 'z')
+            return true;
+        return false;
     }
 
-    public void divideStrWords() {
-        tmpString = hlpStr.toString().split("[\\s,.]+");
-        System.out.println("After divide :");
-        for (String tmp : tmpString) {
-            System.out.print(tmp + " ");
+    public void check() {
+        for (int i = 0; i < text.length(); i++) {
+            if (isSmallLetter(text.charAt(i))) {
+                resSmallLetters[text.charAt(i) - 'a'] = true;
+            }
+            if (isBigLetter(text.charAt(i))) {
+                resBigLetters[text.charAt(i) - 'A'] = true;
+            }
         }
-        System.out.println("");
     }
 
-    public void lettersSearch() {
-        list = new ArrayList<>();
-        for (String tmp : tmpString) {
-             list.add(tmp.replaceAll("[0-9,.;:{}/]", ""));
-        }
-        System.out.println("After string edit :");
-        for (String tmp1 : list) {
-            System.out.print(tmp1 + " ");
-        }
-        System.out.println("");
-    }
-    public void sortLetters() {
-       Collections.sort(list);
-    }
-    public void printResult() {
-        System.out.println("Sorted :");
-        for (String tmp : list) {
-            System.out.print(tmp + " ");
+    public void printRes() {
+        for (int i = 0; i < NUMB_LETTERS; i++) {
+            if (resSmallLetters[i]) {
+                System.out.print((char)('a' + i) + " ");
+            }
+            if (resBigLetters[i]) {
+                System.out.print((char)('A' + i) + " ");
+            }
         }
     }
 }

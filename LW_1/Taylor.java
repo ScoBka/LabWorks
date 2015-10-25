@@ -52,10 +52,10 @@ public class Taylor {
         double a = calcStand();
         double b = calcTaylor();
         System.out.print("Machine's result is : ");
-        System.out.printf("%.3f", a);
+        System.out.printf("%.9f", a);
         System.out.println("");
         System.out.print("My result is : ");
-        System.out.printf("%.3f", b);
+        System.out.printf("%.9f", b);
         System.out.println("");
     }
 }

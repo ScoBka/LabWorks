@@ -6,12 +6,9 @@ public class Main {
     public static void main(String[] args) {
         Text a = new Text();
         try {
-            a.inputText();
-            a.printText();
-            a.divideStrWords();
-            a.lettersSearch();
-            a.sortLetters();
-            a.printResult();
+            a.input();
+            a.check();
+            a.printRes();
         } catch (IOException e) {
             e.printStackTrace();
         }
