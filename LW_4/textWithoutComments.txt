@@ -1,22 +1,22 @@
+
+    package LW_4;
     
-    package lab4;
-    
-    public class Main {
+    public class textWithComment {
         
         public static void main(String[] args) {
             
-            int i  = 0;
+            int i   = 0;
             String s = "\t"; String s1 = "";
             char c = '\t';
             char cc = '/';
             String str = "'";
             char ccc = '*';
             char cccc = '"'; 
-            System.out.println("/*dfsdf*////****/**//**Hello\", \\'world!\\"); 
-            char cccc = 100/'*';
+            System.out.println("/*dfsdf*////****/**//**Hello\");
+            char ccccc = 100/'*';
             char f = '\\';
             char f1 = '\n';
-            char f2 = '\"';
+            char f2 = '\"';        
             "".getBytes();
         }
     }

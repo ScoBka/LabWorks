@@ -9,7 +9,7 @@ public class Comments {
     String txt;
 
     public void readFile() throws IOException {
-        FileInputStream inFile = new FileInputStream("D:\\Projects\\Lab1\\src\\LW_4\\text.txt");
+        FileInputStream inFile = new FileInputStream("D:\\Projects\\Lab1\\src\\LW_4\\textWithComment.java");
         byte[] tempStr = new byte[inFile.available()];
         inFile.read(tempStr);
         text = new String(tempStr);
@@ -26,6 +26,17 @@ public class Comments {
         txt = "";
         boolean fl;
         for (int i = 0; i < text.toCharArray().length; i++) {
+            if ((text.charAt(i) == '/') && (text.charAt(i + 1) == '/')) {
+                while (!(text.charAt(i) == '\n')) {
+                    i++;
+                }
+            }
+            if (text.charAt(i) == '(' && text.charAt(i + 1) == '"') {
+                while (!(text.charAt(i) == '"' && text.charAt(i + 1) == ')')) {
+                    txt += text.charAt(i);
+                    i++;
+                }
+            }
             if (text.charAt(i) == '/' && text.charAt(i + 1) == '*') {
                 fl = true;
                 while (fl) {
@@ -37,24 +48,6 @@ public class Comments {
                         i = i + 2;
                         fl = false;
                     }
-                }
-            }
-
-            if ((text.charAt(i) == '/') && (text.charAt(i + 1) == '/')) {
-                while (!(text.charAt(i) == '\n')) {
-                    i++;
-                }
-            }
-            if (text.charAt(i) == '=') {
-                while (text.charAt(i) == ';') {
-                    txt += text.charAt(i);
-                    i++;
-                }
-            }
-            if (text.charAt(i) == '(' && text.charAt(i + 1) == '"') {
-                while (!(text.charAt(i) == '"' && text.charAt(i + 1) == ')')) {
-                    txt += text.charAt(i);
-                    i++;
                 }
             }
             txt += text.charAt(i);
