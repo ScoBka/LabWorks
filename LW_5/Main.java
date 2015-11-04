@@ -9,10 +9,13 @@ public class Main {
             tag.readFile("D:\\Projects\\Lab1\\src\\LW_5\\input1.html", tag.text);
             tag.readFile("D:\\Projects\\Lab1\\src\\LW_5\\input2.txt", tag.txt);
             tag.distinguishTags();
-            //tag.match();
             tag.sortTags();
             tag.findMatches();
-            tag.writeFile();
+            tag.textWork();
+            tag.checkWords();
+            tag.writeFile("D:\\Projects\\Lab1\\src\\LW_5\\output1.txt", tag.tags);
+            tag.writeFile("D:\\Projects\\Lab1\\src\\LW_5\\output2.txt", tag.numStr);
+            tag.writeFile("D:\\Projects\\Lab1\\src\\LW_5\\output3.txt", tag.notFoundWords);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,18 +1,18 @@
 package LW_5;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.*;
 
 class Tags {
-    String strTags;
-    String strWords;
+    private String[] searchWords;
+    private String strTags;
+    private String strWords;
     public List<Integer> numStr;
     public List<String> text;
     private List<String> words;
     public List<String> txt;
     public List<String> tags;
+    public List<String> notFoundWords;
 
     public Tags() {
         strTags = "";
@@ -22,28 +22,16 @@ class Tags {
         txt = new ArrayList<>();
         words = new ArrayList<>();
         tags = new ArrayList<>();
+        notFoundWords = new ArrayList<>();
     }
 
-//    public void match() {
-//        Pattern DATA = Pattern.compile("<(\\w+)>");
-//        Matcher matcher = DATA.matcher(strTags);
-//        for (String item : text) {
-//            matcher = DATA.matcher(item);
-//        }
-//        while (matcher.find()){
-//            System.out.print(matcher.group() + " ");
-//        }
-//    }
-
     public void readFile(String fileName, List<String> list) throws FileNotFoundException {
-        FileReader fr = new FileReader(fileName);
-        Scanner sc = new Scanner(fr);
+        Scanner sc = new Scanner(new FileReader(fileName));
         while(sc.hasNextLine()) {
             list.add(sc.nextLine());
         }
         sc.close();
     }
-
 
     public void distinguishTags() {
         for (String item : text) {
@@ -71,34 +59,41 @@ class Tags {
 
     public void findMatches() {
         words.addAll(Arrays.asList(strWords.split("\n")));
-        final int MINUS_ONE = -1;
-        String[] searchWords = txt.toString().split("[ ,\\[\\];\n]+");
+        searchWords = txt.toString().split("[ ,\\[\\];\n]+");
         for (String item : words) {
             String[] wordsArr = item.split(" ");
             for (String item2 : wordsArr) {
                 for (String item3 : searchWords) {
                     if (item2.compareToIgnoreCase(item3) == 0) {
-                        System.out.println(item2 + " " + words.indexOf(item));
+                        numStr.add(words.indexOf(item));
                     }
                 }
             }
         }
     }
 
-    public void writeFile(String fileName) throws FileNotFoundException {
-        PrintStream
-//        for (String item : words) {
-//           System.out.println(item);
-//        }
-//        System.out.println();
-//        for (Integer item : numStr) {
-//          System.out.print(item + " ");
-//        }
-//        System.out.println();
-//        System.out.println(words);
-//        for (String item : txt) {
-//            System.out.println(item);
-//        }
+    public void textWork(){
+        words.clear();
+        String[] wordsArr = strWords.split("[ \n]+");
+        for(String item : wordsArr){
+            if(!item.isEmpty()) {
+                words.add(item);
+            }
+        }
+    }
+
+    public void checkWords() {
+        for (String item1 : searchWords) {
+            if (!words.contains(item1)) {
+                notFoundWords.add(item1);
+            }
+        }
+    }
+
+    public void writeFile(String fileName, List list) throws IOException {
+        PrintWriter pw = new PrintWriter(new FileWriter(fileName));
+        list.forEach(pw::println);
+        pw.close();
     }
 }
 
