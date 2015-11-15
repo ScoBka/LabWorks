@@ -4,95 +4,125 @@ import java.io.*;
 import java.util.*;
 
 class Tags {
-    private String[] searchWords;
-    private String strTags;
-    private String strWords;
-    public List<Integer> numStr;
-    public List<String> text;
-    private List<String> words;
-    public List<String> txt;
-    public List<String> tags;
-    public List<String> notFoundWords;
+    private Map<String, Integer> wordsNumStr;
+    private List<String> searchWordsList;
+    private List<String> tags;
+    private StringBuilder tempStrBuilder;
 
     public Tags() {
-        strTags = "";
-        strWords = "";
-        numStr = new ArrayList<>();
-        text = new ArrayList<>();
-        txt = new ArrayList<>();
-        words = new ArrayList<>();
+        tempStrBuilder = new StringBuilder();
+        wordsNumStr = new HashMap<>();
+        searchWordsList = new ArrayList<>();
         tags = new ArrayList<>();
-        notFoundWords = new ArrayList<>();
     }
 
-    public void readFile(String fileName, List<String> list) throws FileNotFoundException {
+    public void readHtmlFile(String fileName) throws FileNotFoundException {
+        Scanner sc = new Scanner(new FileReader(fileName));
+        sc.useDelimiter("[ \t]+");
+        while(sc.hasNextLine()) {
+            tempStrBuilder.append(sc.nextLine());
+            tempStrBuilder.append("\n");
+        }
+
+        sc.close();
+    }
+
+    public void readSearchWordsFile(String fileName) throws FileNotFoundException {
         Scanner sc = new Scanner(new FileReader(fileName));
         while(sc.hasNextLine()) {
-            list.add(sc.nextLine());
+            searchWordsList.add(sc.nextLine());
         }
         sc.close();
     }
 
-    public void distinguishTags() {
-        for (String item : text) {
-            for (int i = 0; i < item.length(); i++) {
-                if (item.charAt(i) == '<') {
-                    while (item.charAt(i) != '>') {
-                        strTags += item.charAt(i);
-                        i++;
-                    }
-                    strTags += item.charAt(i) + "\n";
-                }
-                else {
-                    strWords += item.charAt(i);
-                }
-            }
-            strWords += "\n";
+    public void searchTags () {
+        StringBuilder strTags = new StringBuilder();
+        for (int i = 0; i < tempStrBuilder.length() - 1; i++) {
+            i = tempStrBuilder.indexOf("<");
+            strTags.append(tempStrBuilder.substring(i, tempStrBuilder.indexOf(">") + 1));
+            tempStrBuilder.delete(i, tempStrBuilder.indexOf(">") + 1);
+            tags.add(strTags.toString());
+            strTags.delete(0, strTags.length());
         }
     }
 
     public void sortTags() {
-        String[] tagsArr = strTags.split("\n");
-        tags.addAll(Arrays.asList(tagsArr));
         Collections.sort(tags, new Comp());
     }
 
-    public void findMatches() {
-        words.addAll(Arrays.asList(strWords.split("\n")));
-        searchWords = txt.toString().split("[ ,\\[\\];\n]+");
-        for (String item : words) {
-            String[] wordsArr = item.split(" ");
-            for (String item2 : wordsArr) {
-                for (String item3 : searchWords) {
-                    if (item2.compareToIgnoreCase(item3) == 0) {
-                        numStr.add(words.indexOf(item));
-                    }
-                }
+    private int searchLineNumberWord (String fragment){
+        fragment = fragment.toLowerCase();
+        int index = tempStrBuilder.toString().toLowerCase().indexOf(fragment);
+        int line = 0;
+        for(int i = 0; i < index; i++){
+            if(tempStrBuilder.toString().charAt(i) == '\n'){
+                line++;
             }
         }
+        return line;
     }
 
-    public void textWork(){
-        words.clear();
-        String[] wordsArr = strWords.split("[ \n]+");
-        for(String item : wordsArr){
-            if(!item.isEmpty()) {
-                words.add(item);
-            }
+    private void deleteFoundWord (String fragment) {
+        String str = tempStrBuilder.toString().replace(fragment, "");
+        tempStrBuilder.delete(0, tempStrBuilder.length());
+        tempStrBuilder.append(str);
+    }
+
+    private List<String> fillWordsList () {
+        List<String> wordsList = new ArrayList<>();
+        String[] wordsArr = tempStrBuilder.toString().split("[ \n]+");
+        for (String item : wordsArr) {
+            wordsList.add(item.toLowerCase());
         }
+        return wordsList;
+    }
+
+    private String[] fillSearchWordsArr () {
+        StringBuilder sb = new StringBuilder();
+        for (String item : searchWordsList) {
+            sb.append(item);
+            sb.append(" ");
+        }
+        String[] wordsArr = sb.toString().split("[ ;,\n]+");
+        return wordsArr;
     }
 
     public void checkWords() {
-        for (String item1 : searchWords) {
-            if (!words.contains(item1)) {
-                notFoundWords.add(item1);
+        String[] searchWordsArr = fillSearchWordsArr();
+        for (String item : searchWordsArr) {
+            if (!fillWordsList().contains(item.toLowerCase())) {
+                wordsNumStr.put(item, -1);
+            }
+            else {
+                wordsNumStr.put(item, searchLineNumberWord(item));
+                deleteFoundWord(item);
             }
         }
     }
 
-    public void writeFile(String fileName, List list) throws IOException {
+    public void writeFile(String fileName) throws IOException {
+        PrintWriter pw = new PrintWriter(new File(fileName));
+        for (String item : tags) {
+            pw.println(item);
+        }
+        pw.close();
+    }
+
+    public void writeFoundWordsFile (String fileName) throws IOException {
         PrintWriter pw = new PrintWriter(new FileWriter(fileName));
-        list.forEach(pw::println);
+        for (Map.Entry entry: wordsNumStr.entrySet()) {
+            pw.println("Word : " + entry.getKey() + ", String number : " + entry.getValue());
+        }
+        pw.close();
+    }
+
+    public void writeNotFoundWordsFile (String fileName) throws IOException {
+        PrintWriter pw = new PrintWriter(new FileWriter(fileName));
+        for (Map.Entry entry: wordsNumStr.entrySet()) {
+            if ((int)entry.getValue() == -1) {
+                pw.println(entry.getKey());
+            }
+        }
         pw.close();
     }
 }

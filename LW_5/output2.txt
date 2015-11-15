@@ -1,8 +1,12 @@
-0
-1
-1
-0
-0
-4
-5
-6
+Word : asd, String number : -1
+Word : zxc, String number : -1
+Word : yes, String number : -1
+Word : lol, String number : -1
+Word : me, String number : 4
+Word : miracle, String number : -1
+Word : tulay, String number : -1
+Word : helLo, String number : 3
+Word : if, String number : 4
+Word : PleaSe, String number : 4
+Word : you, String number : 4
+Word : JusT, String number : 1
