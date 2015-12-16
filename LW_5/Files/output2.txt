@@ -1,12 +1,11 @@
-Word : everYone. is rOller, String number : 5
-Word : zxc, String number : -1
-Word : me!, String number : 4
-Word : JusT, do, String number : 1
-Word : llo, String number : 3
 Word : asd, String number : -1
+Word : everYone. is rOller, String number : 5
 Word : do it, String number : 1
+Word : zxc, String number : -1
 Word : dyatel, String number : -1
+Word : me!, String number : 4
 Word : miracle, String number : -1
+Word : JusT, do, String number : 1
 Word : helLo, String number : 3
 Word : if, String number : 4
 Word : do everyone?, String number : 6

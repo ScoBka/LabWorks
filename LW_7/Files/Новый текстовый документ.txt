@@ -1,0 +1,3 @@
+SELECT * FROM database WHERE shortTitle = "GOOG";
+select * From database where activity = "search";
+Select * from database Where DataFoundation between 20.12.1987 and 12.15.2015;

@@ -1,0 +1,39 @@
+{
+	"name": "Google",
+	"shortTitle": "GOOG",
+	"address": "USA Mountain View",
+	"dateFoundation": "04.09.1998",
+	"countEmployees": "40000",
+	"auditor": "Ernst&Young",
+	"phone": " ",
+	"email": "gmail.com",
+	"branch": "IT",
+	"activity": "Search",
+	"internetAddress": "google.com"
+}
+{
+	"name": "Facebook",
+	"shortTitle": "FB",
+	"address": "USA Menlo Park",
+	"dateFoundation": "04.02.2004",
+	"countEmployees": "10082",
+	"auditor": "Ernst&Young",
+	"phone": " ",
+	"email": "@facebook.com",
+	"branch": "IT",
+	"activity": "social networking service",
+	"internetAddress": "Facebook.com"
+}
+{
+	"name": "Twitter Inc",
+	"shortTitle": "Twitter",
+	"address": "USA SanFrancisco California",
+	"dateFoundation": "21.03.2006",
+	"countEmployees": "900",
+	"auditor": "Ernst&Young",
+	"phone": "89023565578",
+	"email": "@twitter.com",
+	"branch": "IT",
+	"activity": "social networking service",
+	"internetAddress": "Twitter.com"
+}

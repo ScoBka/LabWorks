@@ -1,0 +1,6 @@
+Running application
+Reading from file
+Running menu
+Searching data foundation
+Writing in file
+End application

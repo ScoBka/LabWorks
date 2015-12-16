@@ -1,0 +1,42 @@
+<company>
+	<name>Google</name>
+	<shortTitle>GOOG</shortTitle>
+	<address>USA Mountain View</address>
+	<dateFoundation>04.09.1998</dateFoundation>
+	<countEmployees>40000</countEmployees>
+	<auditor>Ernst&Young</auditor>
+	<phone> </phone>
+	<email>gmail.com</email>
+	<branch>IT</branch>
+	<activity>Search</activity>
+	<internetAddress>google.com</internetAddress>
+</company>
+
+<company>
+	<name>Facebook</name>
+	<shortTitle>FB</shortTitle>
+	<address>USA Menlo Park</address>
+	<dateFoundation>04.02.2004</dateFoundation>
+	<countEmployees>10082</countEmployees>
+	<auditor>Ernst&Young</auditor>
+	<phone> </phone>
+	<email>@facebook.com</email>
+	<branch>IT</branch>
+	<activity>social networking service</activity>
+	<internetAddress>Facebook.com</internetAddress>
+</company>
+
+<company>
+	<name>Twitter Inc</name>
+	<shortTitle>Twitter</shortTitle>
+	<address>USA SanFrancisco California</address>
+	<dateFoundation>21.03.2006</dateFoundation>
+	<countEmployees>900</countEmployees>
+	<auditor>Ernst&Young</auditor>
+	<phone>89023565578</phone>
+	<email>@twitter.com</email>
+	<branch>IT</branch>
+	<activity>social networking service</activity>
+	<internetAddress>Twitter.com</internetAddress>
+</company>
+
